@@ -1,0 +1,23 @@
+<html>
+	<head>
+		 <title>Sorting algorithm visualisation</title>
+	</head>
+	<body bgcolor="black">
+		<select id="algoselect">
+			<option>Bubble Sort</option>
+			<option>Insertion Sort</option>
+			<option>Quick Sort</option>
+			<option>Merge Sort</option>
+		</select>
+		<button id="shuffle">Shuffle</button>
+		<button id="start">Start</button>
+		<font style="color:white">Number of Elements:</font>
+		<input type="range" min=25 max=1300 value=50 id="size"/>
+		<br/><canvas id="display" width=1300 height=500></canvas>
+		<script src="controls.js"></script>
+		<script src="bubble.js"></script>
+		<script src="insertion.js"></script>
+		<script src="quick.js"></script>
+		<script src="merge.js"></script>
+	</body>
+</html>
