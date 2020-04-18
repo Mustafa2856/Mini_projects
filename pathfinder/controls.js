@@ -72,6 +72,10 @@ genb.onclick = (event) => {
 
 const startb = document.getElementById("start");
 startb.onclick = (event) => {
-	if(current=="A star")
+	if(current=="A-star")
 		astar();
+	if(current=="Modified A-star")
+		mastar();
+	if(current=="Dijikstra's alg")
+		dijik();
 }

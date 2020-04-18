@@ -1,54 +1,49 @@
-const hueristic = (x,y) => {
-	let d = Math.round(Math.sqrt((endx-x)*(endx-x)+(endy-y)*(endy-y)));
-	return d;
-}
-
-const sort = (ptr) => {
+const msort = (ptr) => {
 	if(ptr<=0)return;
-	mergesort(0,ptr);
+	mmergesort(0,ptr);
 }
 
-function mergesort(s,e){
+function mmergesort(s,e){
         if(s<e){
             let m = Math.floor((s+e)/2);
-            mergesort(s,m);
-            mergesort(m+1,e);
-            merge(s,e,m);
+            mmergesort(s,m);
+            mmergesort(m+1,e);
+            mmerge(s,e,m);
         }
     }
 
-function merge(s,e,m){
+function mmerge(s,e,m){
         let i1=s;let i2=m+1;
         let c = [];let count=0;
         while(i1<=m && i2<=e){
-            if((step[i1].globalv)>(step[i2].globalv)){
-                c[count]=step[i1];
+            if((mstep[i1].globalv-mstep[i1].localv)>(mstep[i2].globalv-mstep[i2].localv)){
+                c[count]=mstep[i1];
                 i1++;
                 count++;
             }
             else{
-                c[count]=step[i2];
+                c[count]=mstep[i2];
                 i2++;
                 count++;
             }
         }
         while(i1<=m){
-            c[count]=step[i1];
+            c[count]=mstep[i1];
             i1++;
             count++;
         }
         while(i2<=e){
-            c[count]=step[i2];
+            c[count]=mstep[i2];
             i2++;
             count++;
         }
-        for(let i=s;i<=e;i++)step[i]=c[i-s];
+        for(let i=s;i<=e;i++)mstep[i]=c[i-s];
     }
 
-const astar = () => {
-	step = [];
-	foundastar=false;
-	stepptr=0;
+const mastar = () => {
+	mstep = [];
+	mfoundastar=false;
+	mstepptr=0;
 	for(let i=0;i<w;i++){
 		for(let j=0;j<h;j++){
 			grid[i][j].parent=null;
@@ -59,60 +54,60 @@ const astar = () => {
 	}
 	grid[startx][starty].localv = 0;
 	grid[startx][starty].globalv = grid[startx][starty].localv + hueristic(startx,starty);
-	step[stepptr] = grid[startx][starty];
-	astarstep();
+	mstep[mstepptr] = grid[startx][starty];
+	mastarstep();
 }
 
-let step = [];
-let stepptr = -1;
-let foundastar=false;
+let mstep = [];
+let mstepptr = -1;
+let mfoundastar=false;
 
-const astarstep = () => {
+const mastarstep = () => {
 	draw();
 	setTimeout(
 	() => {
-		let check = step[stepptr];
-		stepptr--;
+		let check = mstep[mstepptr];
+		mstepptr--;
 		if(check.x == endx && check.y==endy)
-		foundastar=true;
+		mfoundastar=true;
 		if(check.x<(w-1)){
 			if(grid[check.x+1][check.y].localv>(grid[check.x][check.y].localv+1) && grid[check.x+1][check.y].type!=1){
-				stepptr++;
+				mstepptr++;
 				grid[check.x+1][check.y].localv = grid[check.x][check.y].localv+1;
 				grid[check.x+1][check.y].globalv = grid[check.x][check.y].localv+1+ hueristic(check.x+1,check.y);
 				grid[check.x+1][check.y].parent = grid[check.x][check.y];
-				step[stepptr] = grid[check.x+1][check.y];
+				mstep[mstepptr] = grid[check.x+1][check.y];
 			}
 		}
 		if(check.y<(h-1)){
 			if(grid[check.x][check.y+1].localv>(grid[check.x][check.y].localv+1) && grid[check.x][check.y+1].type!=1){
-				stepptr++;
+				mstepptr++;
 				grid[check.x][check.y+1].localv = grid[check.x][check.y].localv+1;
 				grid[check.x][check.y+1].globalv = grid[check.x][check.y].localv+1+ hueristic(check.x,check.y+1);
 				grid[check.x][check.y+1].parent = grid[check.x][check.y];
-				step[stepptr] = grid[check.x][check.y+1];
+				mstep[mstepptr] = grid[check.x][check.y+1];
 			}
 		}
 		if(check.x>0){
 			if(grid[check.x-1][check.y].localv>(grid[check.x][check.y].localv+1) && grid[check.x-1][check.y].type!=1){
-				stepptr++;
+				mstepptr++;
 				grid[check.x-1][check.y].localv = grid[check.x][check.y].localv+1;
 				grid[check.x-1][check.y].globalv = grid[check.x][check.y].localv+1+ hueristic(check.x-1,check.y);
 				grid[check.x-1][check.y].parent = grid[check.x][check.y];
-				step[stepptr] = grid[check.x-1][check.y];
+				mstep[mstepptr] = grid[check.x-1][check.y];
 			}
 		}
 		if(check.y>0){
 			if(grid[check.x][check.y-1].localv>(grid[check.x][check.y].localv+1) && grid[check.x][check.y-1].type!=1){
-				stepptr++;
+				mstepptr++;
 				grid[check.x][check.y-1].localv = grid[check.x][check.y].localv+1;
 				grid[check.x][check.y-1].globalv = grid[check.x][check.y].localv+1+ hueristic(check.x,check.y-1);
 				grid[check.x][check.y-1].parent = grid[check.x][check.y];
-				step[stepptr] = grid[check.x][check.y-1];
+				mstep[mstepptr] = grid[check.x][check.y-1];
 			}
 		}
-		sort(stepptr);
-		if(foundastar){
+		msort(mstepptr);
+		if(mfoundastar){
 			let s = grid[endx][endy];
 			while(s.parent!=null){
 				grid[s.x][s.y].path=true;console.log(s.x,s.y);
@@ -120,6 +115,6 @@ const astarstep = () => {
 			}
 			draw();
 		}
-		if(stepptr!=-1 && !foundastar)astarstep();
+		if(mstepptr!=-1 && !mfoundastar)mastarstep();
 	},1);
 }
