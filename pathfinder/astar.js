@@ -115,7 +115,7 @@ const astarstep = () => {
 		if(foundastar){
 			let s = grid[endx][endy];
 			while(s.parent!=null){
-				grid[s.x][s.y].path=true;console.log(s.x,s.y);
+				grid[s.x][s.y].path=true;
 				s=grid[s.x][s.y].parent;
 			}
 			draw();

@@ -110,7 +110,7 @@ const mastarstep = () => {
 		if(mfoundastar){
 			let s = grid[endx][endy];
 			while(s.parent!=null){
-				grid[s.x][s.y].path=true;console.log(s.x,s.y);
+				grid[s.x][s.y].path=true;
 				s=grid[s.x][s.y].parent;
 			}
 			draw();

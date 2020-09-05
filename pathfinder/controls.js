@@ -50,10 +50,11 @@ const draw = () => {
 	g.fillStyle = "grey";
 	g.fillRect(0,0,display.width,display.height);
 	g.fillStyle = "white";
+	let counter=0;
 	for(let i=0;i<w;i++){
 		for(let j=0;j<h;j++){
 			if(grid[i][j].type == 3)g.fillStyle = "red";
-			else if(grid[i][j].path)g.fillStyle = "yellow";
+			else if(grid[i][j].path){g.fillStyle = "yellow";counter++;}
 			else if(grid[i][j].type==0 && grid[i][j].globalv==Infinity)g.fillStyle = "white";
 			else if(grid[i][j].type == 1)g.fillStyle = "blue";
 			else if(grid[i][j].type == 2)g.fillStyle = "green";
@@ -61,6 +62,8 @@ const draw = () => {
 			g.fillRect(i*cellsize+1,j*cellsize+1,cellsize-2,cellsize-2);
 		}
 	}
+	if(counter!=0)
+	console.log(current,counter);
 }
 
 draw();
