@@ -1,2 +1,1 @@
-# js_projects
-web related projects
+small projects mostly for trying new stuff
