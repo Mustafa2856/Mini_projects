@@ -78,6 +78,7 @@ int main(){
         fft(tran[i],BATCH,tmp);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Do your stuff here!!
     int start=80,end=200;float factor1=10;
     for(int i=0;i<size/BATCH;i++){
         for(int j=start;j<end;j++){
